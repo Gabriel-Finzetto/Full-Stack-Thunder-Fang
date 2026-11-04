@@ -1,0 +1,70 @@
+.steps button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 5px 3px;
+  border: 0;
+  background: transparent;
+  color: #c5e8ed;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.requirements {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--accent);
+  background: #00a7ab0c;
+  color: #d3e9f0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.deliveryGrid { margin-top: 24px; }
+.fieldLabel { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+.optional { color: var(--muted); font-size: 11px; font-weight: 400; }
+.postalHelp { grid-column: 1 / -1; margin-top: -8px; font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+.optionalDetails {
+  margin-top: 24px;
+  padding-block: 8px;
+  border-block: 1px solid var(--border);
+}
+.optionalDetails > summary { min-height: 44px; padding-block: 11px; color: #c6edf0; font-size: 13px; cursor: pointer; }
+.optionalDetails[open] > summary { margin-bottom: 16px; }
+.optionalDetails > div { padding-bottom: 16px; }
+.noNumber { align-self: center; margin-top: 12px; }
+
+.reviewActions { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: -8px 0 20px; }
+.reviewActions button, .reviewActions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: #b8f8fa;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.mobileSummary { display: none; }
+
+@media (max-width: 800px) {
+  .mobileSummary { display: block; margin-top: 24px; padding: 14px 16px; border: 1px solid #3a6474; border-radius: 8px; background: #082533; }
+  .mobileSummary > summary { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 7px 16px; min-height: 44px; cursor: pointer; list-style: none; }
+  .mobileSummary > summary::-webkit-details-marker { display: none; }
+  .mobileSummary > summary > span:first-child { font-size: 13px; }
+  .mobileSummary > summary > strong { font-size: 22px; }
+  .mobileSummary > summary > small { width: 100%; color: #b9e8ec; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+  .mobileSummary[open] > summary { padding-bottom: 12px; border-bottom: 1px solid #36516c; }
+  .reviewAside { display: none; }
+}
+
+@media (max-width: 520px) {
+  .reviewActions { gap: 0 18px; }
+  .requirements { padding-inline: 12px; }
+}

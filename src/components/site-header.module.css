@@ -1,0 +1,89 @@
+.sticky { position: sticky; top: 0; z-index: 40; background: #030a15f5; backdrop-filter: blur(18px); border-bottom: 1px solid #2b3f5a88; }
+.notice { min-height: 30px; padding: 7px 18px; text-align: center; color: #b7c7d9; background: #02060d; font-size: 11px; line-height: 1.5; letter-spacing: .02em; }
+.notice span { padding-inline: 8px; color: var(--accent); }
+.header { position: relative; display: grid; grid-template-columns: 190px minmax(0, 1fr) auto; align-items: center; gap: 18px; width: min(1540px, calc(100% - 56px)); margin-inline: auto; min-height: 90px; z-index: 20; }
+.brand { justify-self: start; display: block; min-width: 0; }
+.brand img { display: block; width: 185px; max-width: 100%; height: auto; }
+.nav { justify-self: center; display: flex; align-items: center; padding: 4px; border: 1px solid #71829855; border-radius: 28px; background: #0a1725; }
+.desktopLinks { display: contents; }
+.secondaryMenu { display: none; }
+.productsMenu { position: static; }
+.productsMenu summary, .desktopLinks > a, .secondaryMenu > summary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 10px 16px; border-radius: 24px; list-style: none; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap; transition: background 160ms, transform 160ms; }
+.productsMenu summary::-webkit-details-marker, .accountMenu summary::-webkit-details-marker, .secondaryMenu summary::-webkit-details-marker { display: none; }
+.productsMenu[open] summary, .productsMenu summary:hover, .desktopLinks > a:hover, .secondaryMenu[open] > summary { background: #ffffff0d; }
+.productsMenu summary[aria-current], .desktopLinks > a[aria-current] { color: #ecffff; background: #00a7ab24; box-shadow: inset 0 -2px var(--accent); }
+.productsMenu summary svg { transition: transform 160ms ease-out; }
+.productsMenu[open] summary svg { transform: rotate(180deg); }
+.productPanel { position: absolute; top: calc(100% - 4px); left: 50%; transform: translateX(-50%); width: min(830px, calc(100vw - 32px)); padding: 20px 24px; background: #061425; border: 1px solid #35506d; box-shadow: 0 20px 65px #0007; border-radius: 14px; }
+.panelHeading { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 1px solid #ffffff16; }
+.panelHeading > span { color: #c3d5e9; font-size: 12px; font-weight: 700; }
+.panelHeading > a { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; font-size: 12px; }
+.productPanel ul { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 14px 0 0; padding: 0; }
+.productPanel li > a { display: flex; flex-direction: column; align-items: center; padding: 10px 4px; border-radius: 10px; border: 1px solid transparent; }
+.productPanel li > a:hover, .productPanel li > a:focus-visible, .productPanel li > a[aria-current] { background: #ffffff08; border-color: #55708e; }
+.productPanel img { display: block; width: 64px; height: 155px; object-fit: contain; }
+.productPanel li > a > span { margin-top: 11px; font-size: 13px; line-height: 1.5; font-weight: 650; text-align: center; overflow-wrap: anywhere; }
+.productPanel li small { margin-top: 6px; font-size: 12px; color: #b0c2d9; }
+.homeCatalog { display: flex; justify-content: center; align-items: center; gap: 18px; min-height: 44px; margin-top: 11px; border-top: 1px solid #ffffff12; font-size: 12px; color: #c4d8ee; }
+.utilities { display: flex; align-items: center; justify-self: end; gap: 9px; min-width: 0; }
+.language { min-width: 0; }
+.language :global(button[aria-haspopup]) { font-size: 12px; }
+.accountMenu { position: relative; }
+.accountMenu summary { display: flex; align-items: center; justify-content: center; gap: 7px; min-width: 44px; min-height: 44px; padding: 8px 6px; list-style: none; cursor: pointer; color: #e3edf8; }
+.accountGuest { display: flex; align-items: center; gap: 4px; white-space: nowrap; color: #e3edf8; font-size: 12px; }
+.accountGuest a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 2px; }
+.accountGuest a:hover { color: var(--accent); }
+.accountGuest > span { color: #b7c8dc; }
+.accountName { display: block; max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600; }
+.accountMenu summary svg { flex-shrink: 0; }
+.accountChevron { transition: transform 160ms ease-out; }
+.accountMenu[open] .accountChevron { transform: rotate(180deg); }
+.accountStatus { margin: 0; padding: 10px 11px; font-size: 12px; color: #b7c8dc; }
+.accountPanel { position: absolute; top: calc(100% + 14px); right: 0; width: 220px; padding: 12px; background: #061425; border: 1px solid #35506d; border-radius: 10px; box-shadow: 0 18px 50px #0008; }
+.accountPanel a, .accountPanel button { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 10px 11px; min-height: 44px; border: 0; color: inherit; background: transparent; text-align: start; font: inherit; font-size: 13px; border-radius: 4px; cursor: pointer; }
+.accountPanel a:hover, .accountPanel button:hover { background: #ffffff09; }
+.accountPanel button { margin-top: 4px; border-top: 1px solid #ffffff16; border-radius: 0 0 4px 4px; }
+.accountPanel button:disabled { opacity: .65; cursor: wait; }
+.cartButton { position: relative; display: flex; align-items: center; gap: 5px; min-width: 44px; min-height: 44px; padding: 7px; border: 0; color: #e3edf8; background: transparent; cursor: pointer; transition: transform 160ms, background 160ms; border-radius: 7px; }
+.cartCount { color: var(--accent); font-size: 12px; font-weight: 700; }
+.productsMenu[open] > .productPanel, .accountMenu[open] > .accountPanel, .secondaryMenu[open] > .secondaryPanel { animation: menu-in 160ms ease-out; }
+.productsMenu summary:active, .desktopLinks > a:active, .secondaryMenu > summary:active, .cartButton:active { transform: scale(.98); background: #ffffff10; }
+@keyframes menu-in { from { opacity: 0; } to { opacity: 1; } }
+.productPanel { max-height:calc(100dvh - var(--site-header-height, 160px) - 20px); overflow-y:auto; overscroll-behavior:contain; }
+@media (max-width: 1180px) {
+  .header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 8px; padding-block: 10px 13px; }
+  .brand img { width: 174px; }
+  .nav { order: 3; grid-column: 1 / -1; }
+}
+@media (max-width: 620px) {
+  .notice { font-size: 11px; padding: 5px 14px; }
+  .header { width: calc(100% - 28px); gap: 4px 8px; min-height: 0; padding-block: 5px 7px; }
+  .brand img { width: 154px; }
+  .nav { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; width: 100%; padding: 2px; border-radius: 14px; }
+  .desktopLinks { display: none; }
+  .secondaryMenu { display: block; }
+  .productsMenu summary, .secondaryMenu > summary { width: 100%; font-size: 13px; padding: 8px 16px; min-height: 44px; gap: 8px; white-space: normal; text-align: center; line-height: 1.5; border-radius: 11px; }
+  .secondaryPanel { position: absolute; inset-inline: 0; top: calc(100% + 5px); display: flex; flex-direction: column; padding: 8px; border: 1px solid #35506d; border-radius: 12px; background: #061425; box-shadow: 0 18px 50px #0008; }
+  .secondaryPanel > a { display: flex; align-items: center; min-height: 46px; padding: 11px 14px; border-radius: 7px; color: #e3edf8; font-size: 14px; }
+  .secondaryPanel > a:hover, .secondaryPanel > a[aria-current] { background: #00a7ab24; }
+  .utilities { gap: 2px; }
+  .language :global(button[aria-haspopup]) { width: 44px; }
+  .language :global(button[aria-haspopup] > span) { display: none; }
+  .accountGuest { gap: 2px; font-size: 11px; }
+  .accountMenu summary { padding-inline: 3px; }
+  .cartButton { padding-inline: 3px; }
+  .productPanel { padding: 14px; width: calc(100vw - 24px); max-height: calc(100svh - var(--site-header-height, 160px) - 20px); overflow-y: auto; overscroll-behavior: contain; }
+  .productPanel ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .productPanel img { width: 54px; height: 130px; }
+  .productPanel li > a > span { font-size: 12px; }
+  .panelHeading { align-items: flex-start; gap: 10px; }
+  .panelHeading > span { padding-top: 12px; font-size: 11px; }
+  .panelHeading > a { font-size: 12px; }
+  .accountSignedIn summary > svg:first-child { display: none; }
+  .accountName { max-width: 7ch; font-size: 12px; }
+}
+@media (max-width: 370px) { .brand img { width: 120px; } .productsMenu summary, .secondaryMenu > summary { padding-inline: 12px; } }
+@media (prefers-reduced-motion: reduce) {
+  .productsMenu summary, .productsMenu summary svg, .accountChevron, .desktopLinks > a, .secondaryMenu > summary, .cartButton { transition: none; }
+  .productsMenu summary:active, .desktopLinks > a:active, .secondaryMenu > summary:active, .cartButton:active { transform: none; }
+}

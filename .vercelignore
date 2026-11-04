@@ -1,0 +1,18 @@
+# Local configuration is supplied by the Vercel environment settings.
+.env*
+.git
+.github
+.vercel
+.next
+node_modules
+artifacts
+test-results
+playwright-report
+coverage
+out
+supabase/.temp
+supabase/.branches
+AGENTS.md
+*.log
+*.tsbuildinfo
+next-env.d.ts

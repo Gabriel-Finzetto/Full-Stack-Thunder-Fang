@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.png binary
+*.webp binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.glb binary
+*.gltf text eol=lf
+# Preserve upstream notice formatting without weakening checks on application code.
+public/licenses/*.txt -whitespace

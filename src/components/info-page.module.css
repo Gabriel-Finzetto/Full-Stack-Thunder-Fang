@@ -1,0 +1,102 @@
+.page {
+  min-height: 66vh;
+  padding-block: 28px 80px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 48px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.breadcrumb [aria-current] {
+  color: #f8fbff;
+}
+
+.heading {
+  max-width: 780px;
+}
+
+.eyebrow {
+  margin-bottom: 18px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+
+.heading h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -.045em;
+}
+
+.introduction {
+  margin-top: 24px;
+  color: #bcc9dc;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.content {
+  display: grid;
+  gap: 24px;
+  max-width: 780px;
+  margin-top: 40px;
+}
+
+.content section {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #081326;
+}
+
+.content h2 {
+  font-family: var(--font-interface);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.5;
+  letter-spacing: -.02em;
+}
+
+.content p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 48px;
+  margin-top: 32px;
+  color: #f8fbff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.backLink:hover,
+.breadcrumb a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .page { padding-bottom: 48px; }
+  .breadcrumb { margin-bottom: 30px; }
+  .content section { padding: 20px; }
+}

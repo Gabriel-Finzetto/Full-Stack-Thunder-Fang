@@ -1,0 +1,18 @@
+.journey { --available-stage-height:max(220px,calc(100svh - var(--site-header-height,160px) - 72px)); --can-stage-height:min(66svh,540px,var(--available-stage-height)); --can-scroll-distance:300px; position:relative; height:calc(var(--can-stage-height) + var(--can-scroll-distance)); margin-top:-8px; margin-bottom:30px; }
+.sticky { position:sticky; top:calc(var(--site-header-height,160px) + 12px); }
+.stage { position:relative; height:var(--can-stage-height); min-height:220px; width:100%; isolation:isolate; }
+.canGrid { position:absolute; inset:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; padding:24px 10px 30px; pointer-events:none; }
+.canSlot { min-width:0; min-height:0; }
+.perspective { position:relative; width:100%; height:100%; min-height:0; }
+.canFrame { position:absolute; inset:0; margin:auto; width:100%; height:100%; max-width:240px; max-height:360px; transform-origin:50% 50%; }
+.can { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 15px 18px #0006); }
+.canvas { position:absolute; inset:0; display:block; width:100%; height:100%; pointer-events:none; opacity:0; z-index:1; }
+.journey[data-three-status='ready'] .canvas { opacity:1; }
+.journey[data-three-status='ready'] .can { visibility:hidden; }
+.journey[data-three-status='fallback'] { height:var(--can-stage-height); }
+.journey[data-three-status='fallback'] .sticky { position:relative; top:auto; }
+@media(max-width:760px) { .journey { --can-stage-height:min(68svh,560px,var(--available-stage-height)); }.canGrid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:18px 12px; padding:12px 8px 18px; } }
+@media(max-height:650px) { .canGrid { padding-block:12px 18px; } }
+@media(max-height:520px) { .journey { --can-stage-height:275px; height:275px; margin-bottom:24px; }.sticky { position:relative; top:auto; }.stage { min-height:275px; } }
+@media(scripting:none) { .journey { height:var(--can-stage-height); margin-bottom:25px; }.sticky { position:relative; top:auto; } }
+@media(prefers-reduced-motion:reduce) { .journey:not([data-can-motion-choice='animate']) { height:var(--can-stage-height); margin-bottom:35px; }.journey:not([data-can-motion-choice='animate']) .sticky { position:relative; top:auto; } }

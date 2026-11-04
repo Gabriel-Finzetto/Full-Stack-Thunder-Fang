@@ -1,0 +1,23 @@
+.contents { min-width:0; }
+.quantityControl { display:grid; gap:8px; margin-top:14px; max-width:232px; font-size:13px; }
+.quantityControl label { color:#c7d7e8; line-height:1.5; }
+.quantityInput { display:grid; grid-template-columns:44px minmax(44px,1fr) 44px; align-items:center; border:1px solid #3b536f; border-radius:5px; overflow:hidden; }
+.quantityInput button { width:44px; height:44px; min-height:44px; border:0; color:#ecf5ff; background:#11243a; font-size:21px; }
+.quantityInput button:hover:not(:disabled) { background:#1c3b53; }
+.quantityInput button:active:not(:disabled), .shortcuts button:active:not(:disabled) { background:#255370; }
+.quantityInput input { min-width:0; width:100%; height:44px; padding:8px 4px; border:0; border-radius:0; color:#f2f8ff; background:#030d1a; text-align:center; font-size:16px; }
+.quantityInput input[aria-invalid='true'] { box-shadow:inset 0 0 0 1px #f28b80; }
+.shortcuts { display:flex; gap:8px; }
+.shortcuts button { min-width:44px; min-height:44px; padding:8px 16px; border:1px solid #415875; border-radius:4px; color:#c9d9eb; background:transparent; font-size:13px; }
+.shortcuts button[aria-pressed='true'] { color:#e1ffff; border-color:var(--accent); background:#00a7ab14; }
+.quantityError { color:#ffb5b5; line-height:1.6; font-size:13px; }
+.undo { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin:8px 0 18px; padding:12px 14px; border:1px solid #397d80; border-radius:7px; background:#0b292d; }
+.undo p { flex:1; min-width:120px; color:#d6f4f0; font-size:13px; line-height:1.6; }
+.undo button { min-height:44px; min-width:44px; padding:8px; border:0; border-radius:4px; background:transparent; color:#a8f4ef; font-size:13px; font-weight:650; text-decoration:underline; text-underline-offset:4px; }
+.undo button:hover { background:#ffffff0c; }
+.undo .dismissUndo { font-size:23px; font-weight:400; text-decoration:none; }
+:global(html:has(dialog[open])) .storeNotice { visibility:hidden; pointer-events:none; }
+.storeNotice { bottom:calc(88px + env(safe-area-inset-bottom)); }
+@media (max-width:760px) {
+  :global(body:has([data-mobile-purchase]:not([hidden]))) .storeNotice { bottom:calc(174px + env(safe-area-inset-bottom)); }
+}

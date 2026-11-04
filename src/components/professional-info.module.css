@@ -1,0 +1,11 @@
+.center { width:min(680px,100%); margin-inline:auto; }
+.profile { display:flex; flex-direction:column; align-items:center; text-align:center; gap:22px; padding:42px 36px; border:1px solid var(--border); border-radius:16px; background:#071322cc; }
+.avatar { display:grid; place-items:center; width:100px; height:100px; color:#b5edf0; border:1px solid #437387; border-radius:50%; background:#0b2939; font-size:30px; font-weight:700; }
+.profile .role { margin:0; font-size:12px; color:#b1c9dc; }
+.profile h2 { font-size:30px; }
+.profile p { max-width:410px; color:var(--muted); font-size:14px; line-height:1.9; }
+.note { padding:32px 12px 0; text-align:center; }
+.note h2 { font-family:var(--font-interface); font-size:16px; font-weight:650; letter-spacing:0; }
+.note p { margin:15px auto; color:var(--muted); font-size:13px; line-height:1.9; max-width:540px; }
+.note button { color:#a8e6e9; text-decoration:underline; text-underline-offset:4px; font-size:12px; }
+@media(max-width:620px) { .profile { padding:32px 20px; gap:20px; }.profile h2 { font-size:25px; } }

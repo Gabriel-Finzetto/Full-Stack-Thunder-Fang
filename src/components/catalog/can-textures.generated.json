@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "textures": {
+    "original": {
+      "front": {
+        "url": "/images/can-runtime/original-front-2bd2a3de0cc0-4d6c9af8.webp",
+        "source": "public/images/cans/original.png",
+        "sourceSha256": "2bd2a3de0cc0c5b9e82b82fc33dbd1c66cf652e233442d70a081d982d5f89d92",
+        "outputSha256": "4d6c9af8015016257a6825f7736125b9902f3540f5d7190d870cb5629c922713",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 1502172
+      },
+      "rear": {
+        "url": "/images/can-runtime/original-rear-f91e23144664-5de288e7.webp",
+        "source": "public/images/labels/original.png",
+        "sourceSha256": "f91e23144664f13727499467f0f48acd56377331343527dbff916244a0009b1c",
+        "outputSha256": "5de288e7d97eca9fa4b51ad3ca1d24d95ccaf33e8fc50e05258fe6e1e8fb8f7d",
+        "width": 687,
+        "height": 1145,
+        "bytes": 701860,
+        "crop": {
+          "left": 687,
+          "top": 0,
+          "width": 687,
+          "height": 1145
+        }
+      },
+      "sides": {
+        "url": "/images/can-runtime/original-sides-924899e902f4-4e69d623.webp",
+        "source": "public/images/can-sides/original.png",
+        "sourceSha256": "924899e902f42a0b9e386bdb7b234a272fe1c9bcce66ba5adc9b495ad68e9d2f",
+        "outputSha256": "4e69d623d23e8037794541bc1c95dc6c4c417b6f5dd5cde594473f64ff123f41",
+        "width": 512,
+        "height": 768,
+        "bytes": 94942
+      }
+    },
+    "citricos": {
+      "front": {
+        "url": "/images/can-runtime/citricos-front-264eb1eba3b2-13816d93.webp",
+        "source": "public/images/cans/citricos.png",
+        "sourceSha256": "264eb1eba3b27e0e1e438ed8b860b21c10dc9ed927ea59bef4b8131a049bbc4c",
+        "outputSha256": "13816d93d66b02e2ff9ca8bf313b8bb039bda5faa0c34e63221b818c63d311f0",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 1457778
+      },
+      "rear": {
+        "url": "/images/can-runtime/citricos-rear-8a5026174aef-55d9cd3b.webp",
+        "source": "public/images/labels/citricos.png",
+        "sourceSha256": "8a5026174aefa3e471b51c6fdd45b9ce2603cccd6197e4a72e610513b991f208",
+        "outputSha256": "55d9cd3bb738adf289f597fe53201e39e4828e9222e77ff6bdac6f62d1638ace",
+        "width": 687,
+        "height": 1145,
+        "bytes": 698660,
+        "crop": {
+          "left": 687,
+          "top": 0,
+          "width": 687,
+          "height": 1145
+        }
+      },
+      "sides": {
+        "url": "/images/can-runtime/citricos-sides-bf28f34942e4-68e5dcdd.webp",
+        "source": "public/images/can-sides/citricos.png",
+        "sourceSha256": "bf28f34942e4795276bf8580471f024beb3b54db3c99115643a6c16b7b6114f2",
+        "outputSha256": "68e5dcdd90e3350cb9ec3eadbbdcd4dbf8f28086137a446fc78dac26706077a7",
+        "width": 512,
+        "height": 768,
+        "bytes": 138308
+      }
+    },
+    "tropicais": {
+      "front": {
+        "url": "/images/can-runtime/tropicais-front-54f4494213a5-0bf61961.webp",
+        "source": "public/images/cans/tropicais.png",
+        "sourceSha256": "54f4494213a5ffe4c2037fea621541e944825631a470729cf760d72b8c694c0e",
+        "outputSha256": "0bf61961d4f153335e7027fd12cf8729137f4032972ee2cc4f312c462a2a9d69",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 1511464
+      },
+      "rear": {
+        "url": "/images/can-runtime/tropicais-rear-d4d94c52efc3-e5f47c1c.webp",
+        "source": "public/images/labels/tropicais.png",
+        "sourceSha256": "d4d94c52efc38b1858f6598ef35d1e3bdc2f7475814f993ae42b56f2fc5e8b93",
+        "outputSha256": "e5f47c1c0d944df1595317f0b782f2d112228cdcd95a30a2cf1ea7cf620351e4",
+        "width": 687,
+        "height": 1145,
+        "bytes": 722012,
+        "crop": {
+          "left": 687,
+          "top": 0,
+          "width": 687,
+          "height": 1145
+        }
+      },
+      "sides": {
+        "url": "/images/can-runtime/tropicais-sides-73b6452ba93b-5783186a.webp",
+        "source": "public/images/can-sides/tropicais.png",
+        "sourceSha256": "73b6452ba93b3232f7588692f551615042cecd14db0e5657e2b79d9878ef3b47",
+        "outputSha256": "5783186a1f1ab48ff02e70c678f6cdd37cb5724a0a5c03541346891199ff4a0a",
+        "width": 512,
+        "height": 768,
+        "bytes": 140566
+      }
+    },
+    "frutas-vermelhas": {
+      "front": {
+        "url": "/images/can-runtime/frutas-vermelhas-front-ed0e38a29d90-088d8d84.webp",
+        "source": "public/images/cans/frutas-vermelhas.png",
+        "sourceSha256": "ed0e38a29d90acb13569258ddade72966d14a6fe084fce7e13cc3d35a7923bb3",
+        "outputSha256": "088d8d84473db25452336e534e2da359c87af23981e8c448c04b3e68ee8531fe",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 1465958
+      },
+      "rear": {
+        "url": "/images/can-runtime/frutas-vermelhas-rear-ccc1e3444454-c2e5e5ad.webp",
+        "source": "public/images/labels/frutas-vermelhas.png",
+        "sourceSha256": "ccc1e3444454b33893564112807f7453f3897fea7c41002f2ca36094dbbcd17f",
+        "outputSha256": "c2e5e5ad0f2e48a904bfe1e3aad1147dde89b6f7fa307f38980d401f84c07e69",
+        "width": 687,
+        "height": 1145,
+        "bytes": 720166,
+        "crop": {
+          "left": 687,
+          "top": 0,
+          "width": 687,
+          "height": 1145
+        }
+      },
+      "sides": {
+        "url": "/images/can-runtime/frutas-vermelhas-sides-9005f6f66c6a-9d124f13.webp",
+        "source": "public/images/can-sides/frutas-vermelhas.png",
+        "sourceSha256": "9005f6f66c6ae4dfaecc0c7a226e6c8a25911f4258dc25ce6ac2701e32de3441",
+        "outputSha256": "9d124f138ae3f88a7738e715a24f795c7203ff52ab6ca800c43add380d26a2a2",
+        "width": 512,
+        "height": 768,
+        "bytes": 140872
+      }
+    }
+  },
+  "originalBytes": 24249749,
+  "runtimeBytes": 9294758
+}

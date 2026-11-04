@@ -1,0 +1,23 @@
+import type { Messages } from './config';
+
+export const experienceMessages: Messages = {
+  'Como escolher seus sabores?': ['How do I choose flavors?', '¿Cómo elegir tus sabores?', '如何选择口味？'],
+  'Como funciona o carrinho?': ['How does the cart work?', '¿Cómo funciona el carrito?', '购物车如何使用？'],
+  'Como concluir a simulação?': ['How do I complete the demo order?', '¿Cómo completar la simulación?', '如何完成模拟订单？'],
+  'Como acessar sua conta?': ['How do I access my account?', '¿Cómo acceder a tu cuenta?', '如何登录账户？'],
+  'Como acompanhar seus pedidos?': ['How do I track my orders?', '¿Cómo consultar tus pedidos?', '如何查看订单？'],
+  'Idioma e entrega': ['Language and delivery', 'Idioma y entrega', '语言与配送'],
+  'Conheça a Thunder Fang': ['Discover Thunder Fang', 'Conoce Thunder Fang', '了解Thunder Fang'],
+  'Sobre este projeto': ['About this project', 'Sobre este proyecto', '关于本项目'],
+  'Tecnologia do projeto': ['Project technology', 'Tecnología del proyecto', '项目技术'],
+  'A partir de seis latas, combinando os sabores, o desconto de 10% é aplicado automaticamente aos produtos.': ['Combine any six or more cans for an automatic 10% discount on the products.', 'Combina seis latas o más para recibir automáticamente un 10% de descuento en los productos.', '任意组合六罐或以上，商品自动享受九折优惠。'],
+  'O carrinho acompanha suas alterações entre as guias deste navegador e expira após 30 minutos sem atividade.': ['Your cart stays in sync across tabs in this browser and expires after 30 minutes of inactivity.', 'El carrito se sincroniza entre las pestañas de este navegador y caduca tras 30 minutos de inactividad.', '购物车在此浏览器的标签页之间同步，闲置30分钟后过期。'],
+  'Confira endereço, produtos e total antes de confirmar. Esta demonstração não realiza cobrança nem entrega física.': ['Review the address, products and total before confirming. This demo does not charge you or ship products.', 'Revisa la dirección, los productos y el total antes de confirmar. Esta demostración no realiza cobros ni envíos físicos.', '确认前请核对地址、商品与总额。本演示不会收款或实际配送。'],
+  'Depois de confirmar seu e-mail, você volta ao site para continuar de onde parou.': ['After confirming your email, you return to the site to continue where you left off.', 'Después de confirmar tu correo, volverás al sitio para continuar donde lo dejaste.', '确认电子邮箱后，将返回网站继续之前的操作。'],
+  'Seus pedidos são atualizados automaticamente. A demonstração mantém até cinco pedidos por conta, disponíveis por 24 horas.': ['Your orders update automatically. The demo keeps up to five orders per account, available for 24 hours.', 'Tus pedidos se actualizan automáticamente. La demostración mantiene hasta cinco pedidos por cuenta, disponibles durante 24 horas.', '订单会自动更新。每个账户最多保留五个演示订单，有效期为24小时。'],
+  'Você escolhe o país de entrega no checkout. Os valores são apresentados em reais, em todos os idiomas.': ['Choose the delivery country at checkout. Prices are shown in Brazilian reais in every language.', 'Elige el país de entrega al finalizar. Los precios se muestran en reales brasileños en todos los idiomas.', '结账时选择配送国家。所有语言版本均以巴西雷亚尔显示金额。'],
+  'Explore os quatro sabores e monte sua combinação. Você pode conhecer a marca e testar a loja sem cobrança ou envio de produtos.': ['Explore the four flavors and build your combination. Discover the brand and try the store without payment or product shipping.', 'Explora los cuatro sabores y crea tu combinación. Conoce la marca y prueba la tienda sin cobros ni envíos de productos.', '探索四种口味并自由组合。了解品牌并体验商店，无需付款，也不会配送商品。'],
+  'Thunder Fang é uma loja demonstrativa do portfólio de Gabriel Finzetto.': ['Thunder Fang is a demo store in Gabriel Finzetto’s portfolio.', 'Thunder Fang es una tienda demostrativa del portafolio de Gabriel Finzetto.', 'Thunder Fang是Gabriel Finzetto作品集中的演示商店。'],
+  'O projeto reúne identidade visual, interface em quatro idiomas, catálogo, conta, carrinho, pedidos e contato. Os produtos são conceituais.': ['The project brings together visual identity, a four-language interface, catalog, account, cart, orders and contact. The products are conceptual.', 'El proyecto reúne identidad visual, una interfaz en cuatro idiomas, catálogo, cuenta, carrito, pedidos y contacto. Los productos son conceptuales.', '项目涵盖品牌视觉、四语言界面、目录、账户、购物车、订单和联系功能。商品为概念设计。'],
+  'Desenvolvido com Next.js, React e TypeScript, com APIs integradas ao Supabase e envio de mensagens pela Brevo.': ['Built with Next.js, React and TypeScript, with Supabase APIs and messaging through Brevo.', 'Desarrollado con Next.js, React y TypeScript, con API de Supabase y mensajes a través de Brevo.', '采用Next.js、React和TypeScript开发，集成Supabase API，并通过Brevo发送消息。'],
+};

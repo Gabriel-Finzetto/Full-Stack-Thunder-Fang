@@ -1,0 +1,19 @@
+.visual { --can-scale: 1; position: relative; width: min(190px, 100%); height: 354px; margin-inline: auto; perspective: 850px; perspective-origin: 50% 42%; }
+.scale { position: absolute; top: 50%; left: 50%; width: 128px; height: 310px; transform: translate(-50%, -50%) scale(var(--can-scale)); transform-style: preserve-3d; }
+.model { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(-6deg) rotateY(-90deg); }
+.face { position: absolute; top: 20px; left: 50%; height: 274px; background-color: #06101b; background-repeat: no-repeat; backface-visibility: hidden; }
+.face::before, .face::after { content: ""; position: absolute; left: 0; right: 0; height: 7px; background: linear-gradient(#e0e4e7, #555c62 25%, #c3cbd0 47%, #777e85 70%, #11171c); }
+.face::before { top: 0; }
+.face::after { bottom: 0; transform: rotate(180deg); }
+.lid, .base { position: absolute; left: 50%; width: 124px; height: 124px; border: 3px solid #b6bec4; border-radius: 50%; backface-visibility: hidden; background: radial-gradient(ellipse at 32% 40%, #4c555e, #10171d 60%, #343b43 83%, #aeb9c4 86%, #11171d 90%); }
+.lid { top: 20px; transform: translate(-50%, -50%) rotateX(90deg); }
+.base { top: 294px; transform: translate(-50%, -50%) rotateX(-90deg); background: radial-gradient(#abb2b6 55%, #4f565b 58%, #d7dcdf 78%, #545c62); }
+.lidRidge { position: absolute; inset: 9px; border: 1px solid #8d979e; border-radius: 50%; }
+.opening { position: absolute; width: 26px; height: 37px; left: 46px; top: 15px; background: #060a0d; border: 2px solid #8e989f; border-radius: 48%; }
+.tab { position: absolute; left: 44px; top: 47px; width: 30px; height: 42px; border: 7px solid var(--can-accent); border-radius: 45%; background: #182127; }
+.shading { position: absolute; top: 20px; left: 2px; width: 124px; height: 274px; pointer-events: none; transform: translateZ(64px); background: linear-gradient(90deg, #0009 0%, #0002 17%, transparent 35%, #ffffff0b 56%, transparent 68%, #0003 87%, #0009 100%); }
+.shadow { position: absolute; bottom: 10px; left: 50%; width: 154px; height: 17px; transform: translateX(-50%); background: radial-gradient(ellipse, #0009 5%, transparent 70%); }
+.compact { --can-scale: .36; width: 76px; height: 126px; perspective: 750px; }
+.compact .shadow { bottom: 5px; width: 65px; height: 9px; }
+@media (max-width: 760px) { .visual:not(.compact) { --can-scale: .84; width: min(160px, 100%); height: 302px; } }
+@media (prefers-reduced-motion: reduce) { .model { transform: rotateX(-6deg) rotateY(-90deg) !important; } }

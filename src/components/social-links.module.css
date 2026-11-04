@@ -1,0 +1,9 @@
+.links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+.links a { display: flex; align-items: center; gap: 16px; min-height: 76px; padding: 17px 20px; border: 1px solid #405571; border-radius: 6px; background: #ffffff03; color: #d9e9fb; transition: border-color 160ms, background 160ms; }
+.links a:hover { background: #00a7ab09; border-color: var(--accent); }
+.links a > span { display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 650; }
+.links small { color: #91a9c7; font-size: 10px; font-weight: 400; }
+.links b { margin-left: 20px; color: var(--accent); font-size: 15px; font-weight: 400; }
+.compact { gap: 8px; margin: 0; }
+.compact a { min-height: 44px; min-width: 44px; padding: 9px; justify-content: center; border-radius: 50%; }
+@media (max-width: 500px) { .links:not(.compact) { flex-direction: column; } .links a > b { margin-left: auto; } }

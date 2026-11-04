@@ -1,0 +1,2 @@
+dialog.animatedPanel[open] { animation: none; }
+.animatedPanel[data-closing='true'] { pointer-events: none; }
