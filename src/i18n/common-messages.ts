@@ -2,6 +2,8 @@ import type { Messages } from './config';
 import { integrationMessages } from './integration-messages';
 export const commonMessages: Messages = {
   ...integrationMessages,
+  'Seu dispositivo está configurado para reduzir movimento.':['Your device is set to reduce motion.','Tu dispositivo está configurado para reducir el movimiento.','你的设备已设置为减少动态效果。'],
+  'Animar latas':['Animate cans','Animar latas','启用罐身动画'],
   'Pré-visualizar movimento':['Preview motion','Previsualizar movimiento','预览动态效果'],
   'Manter imagens estáticas':['Keep images still','Mantener imágenes estáticas','保持静态图片'],
   'Role para percorrer os quatro sabores.':['Scroll to explore the four flavors.','Desplázate para recorrer los cuatro sabores.','滚动浏览四种口味。'],

@@ -1,3 +1,6 @@
+.motionPreferences { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; text-align:center; }
+.motionPreferences p { color:var(--muted); font-size:12px; line-height:1.6; }
+.motionPreferences button[aria-pressed='true'] { border-color:var(--accent); }
 .journey { --available-stage-height:max(220px,calc(100svh - var(--site-header-height,160px) - 72px)); --can-stage-height:min(66svh,540px,var(--available-stage-height)); --can-scroll-distance:300px; position:relative; height:calc(var(--can-stage-height) + var(--can-scroll-distance)); margin-top:-8px; margin-bottom:30px; }
 .sticky { position:sticky; top:calc(var(--site-header-height,160px) + 12px); }
 .stage { position:relative; height:var(--can-stage-height); min-height:220px; width:100%; isolation:isolate; }

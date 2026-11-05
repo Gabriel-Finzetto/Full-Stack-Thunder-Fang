@@ -75,12 +75,33 @@ export function OrbitScene() {
     } catch { /* The explicit URL still works without persistent storage. */ }
     setReady(true);
   }, []);
-  return <div ref={track} className={styles.journey} data-orbit-journey data-three-status={graphics} data-can-motion-choice={motionChoice} data-animated={ready && !motionDisabled ? 'true' : 'false'}>
-    <div className={styles.sticky}>
-      <div ref={stage} className={styles.stage} role="img" aria-label={`Thunder Fang Energy — ${products.map(product => t(product.name)).join(', ')}`}>
-        <div className={styles.canGrid}>{products.map(product => <CanSlot key={product.slug} product={product} />)}</div>
-        <canvas ref={canvas} className={styles.canvas} data-can-renderer="3d" aria-hidden="true" />
+  const toggleMotion = () => {
+    const choice = motionChoice === 'animate' ? 'auto' : 'animate';
+    setMotionChoice(choice);
+    try {
+      if (choice === 'animate') localStorage.setItem(CAN_MOTION_PREFERENCE_KEY, choice);
+      else localStorage.removeItem(CAN_MOTION_PREFERENCE_KEY);
+    } catch { /* The control still works for this visit when storage is unavailable. */ }
+    // Keep an explicit link from overriding a later choice after a reload.
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('movimento')) {
+      url.searchParams.set('movimento', choice === 'animate' ? 'latas' : 'sistema');
+      window.history.replaceState(null, '', url);
+    }
+  };
+  return <>
+    {ready && reducedMotion && !shortViewport && graphics !== 'fallback' && <div className={styles.motionPreferences}>
+      <p>{t('Seu dispositivo está configurado para reduzir movimento.')}</p>
+      <button type="button" className="btn btn-secondary" aria-pressed={motionChoice === 'animate'} onClick={toggleMotion}>{t('Animar latas')}</button>
+    </div>}
+    <div ref={track} className={styles.journey} data-orbit-journey data-three-status={graphics} data-can-motion-choice={motionChoice} data-animated={ready && !motionDisabled ? 'true' : 'false'}>
+      <div className={styles.sticky}>
+        <div ref={stage} className={styles.stage} role="img" aria-label={`Thunder Fang Energy — ${products.map(product => t(product.name)).join(', ')}`}>
+          <div className={styles.canGrid}>{products.map(product => <CanSlot key={product.slug} product={product} />)}</div>
+          {/* A disposed stage loses its WebGL context, so each session needs a fresh canvas. */}
+          <canvas key={graphicsAllowed ? 'animated' : 'static'} ref={canvas} className={styles.canvas} data-can-renderer="3d" aria-hidden="true" />
+        </div>
       </div>
     </div>
-  </div>;
+  </>;
 }
