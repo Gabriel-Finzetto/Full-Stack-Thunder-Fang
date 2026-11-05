@@ -4,7 +4,7 @@ E-commerce demonstrativo desenvolvido por **[Gabriel Finzetto](https://github.co
 
 **[Acessar a demonstração](https://thunder-fang.vercel.app/pt-BR)**
 
-O projeto simula uma loja de bebidas energéticas. **Não realiza cobranças nem envia produtos.** Use dados fictícios ao explorar o checkout.
+O projeto apresenta uma marca conceitual de bebidas energéticas por meio de uma jornada de compra demonstrativa. Embora autenticação, banco de dados e rotas de API funcionem nos ambientes configurados, **a loja não realiza cobranças nem envia produtos**. A experiência foi construída para demonstrar decisões de interface, consistência dos dados e segurança de uma aplicação completa. Use dados fictícios ao explorar o checkout.
 
 ## Funcionalidades
 
@@ -127,6 +127,11 @@ docs/             documentação técnica e operacional
 
 ## Documentação
 
+O [escopo atualizado](docs/ESCOPO.md) explica o que já está implementado, o que foi validado e as decisões que distinguem o produto atual do mapa FigJam de outubro de 2026. O [plano de validação](docs/PLANO_DE_VALIDACAO.md) reúne os próximos passos para transformar a demonstração em um case de portfólio com evidências reproduzíveis. As [diretrizes de linguagem](DIRETRIZES_DE_LINGUAGEM.md) orientam a escrita de documentação e interface, preservando clareza, precisão e um tom natural.
+
+- [Escopo do produto e estado atual](docs/ESCOPO.md)
+- [Plano de validação, pendências e critérios de aceite](docs/PLANO_DE_VALIDACAO.md)
+- [Diretrizes editoriais do projeto](DIRETRIZES_DE_LINGUAGEM.md)
 - [Configuração e reprodução das integrações](docs/CONFIGURACAO.md)
 - [Arquitetura e decisões técnicas](docs/ARQUITETURA.md)
 - [Contratos da API](docs/API.md)
