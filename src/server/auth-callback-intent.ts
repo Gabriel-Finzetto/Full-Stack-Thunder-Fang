@@ -30,7 +30,9 @@ export async function confirmEmailIntent(query: URLSearchParams, origin: string,
     'Content-Type': 'text/html; charset=utf-8',
     'Cache-Control': 'private, no-store, max-age=0',
     Pragma: 'no-cache',
-    'Referrer-Policy': 'no-referrer',
+    // no-referrer makes a browser form POST send Origin:null. Preserve the
+    // origin check while withholding the token-bearing path and query.
+    'Referrer-Policy': 'strict-origin',
     'X-Robots-Tag': 'noindex, nofollow, noarchive',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',

@@ -15,9 +15,16 @@ const nextConfig: NextConfig = {
         { key: 'Content-Security-Policy', value: "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'" },
         { key: 'X-Frame-Options', value: 'DENY' },
         { key: 'X-Content-Type-Options', value: 'nosniff' },
-        { key: 'Referrer-Policy', value: 'no-referrer' },
         { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
       ],
+    }, {
+      // Route responses cannot override an existing next.config header. The
+      // callback selects strict-origin only for its confirmation form HTML.
+      source: '/:path((?!api/auth/callback$).*)',
+      headers: [{ key: 'Referrer-Policy', value: 'no-referrer' }],
+    }, {
+      source: '/api/auth/callback',
+      headers: [{ key: 'Content-Security-Policy', value: "default-src 'none'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'" }],
     }, {
       source: '/images/can-runtime/:path*',
       headers: [{ key:'Cache-Control', value:'public, max-age=31536000, immutable' }],

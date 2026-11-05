@@ -179,7 +179,7 @@ describe('consentimento explícito antes de aceitar links de e-mail sem PKCE', (
     expect(await response.text()).toContain('method="post"');
     expect(response.headers.get('cache-control')).toContain('no-store');
     expect(response.headers.get('content-security-policy')).toContain("frame-ancestors 'none'");
-    expect(response.headers.get('referrer-policy')).toBe('no-referrer');
+    expect(response.headers.get('referrer-policy')).toBe('strict-origin');
     expect(response.headers.get('x-robots-tag')).toBe('noindex, nofollow, noarchive');
     expect(auth.verifyOtp).not.toHaveBeenCalled();
     expect(mock.client).not.toHaveBeenCalled();

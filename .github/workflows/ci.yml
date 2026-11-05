@@ -46,3 +46,36 @@ jobs:
 
       - name: Build production application
         run: npm run build
+
+  firefox:
+    name: Firefox browser regression tests
+    needs: quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+      # Fixed synthetic fixtures initialize the browser SDK; providers are intercepted.
+      NEXT_PUBLIC_SUPABASE_URL: https://auth-test.example.invalid
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_browser_test
+      BACKEND_LOCAL_MODE: 'true'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Firefox and system dependencies
+        run: npx playwright install --with-deps firefox
+
+      - name: Run isolated Firefox browser tests
+        run: npm run test:browser -- --project=firefox

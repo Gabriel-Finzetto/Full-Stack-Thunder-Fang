@@ -66,11 +66,18 @@ let context;
 let fixture;
 let observedToken;
 let corePassed = true;
+let phase = 'setup';
 const output = path.join(root, 'test-results', 'release');
 
 async function check(name, kind, action) {
   try { await action(); report.checks.push({ name, kind, passed: true }); console.log(`PASS: ${name}`); return true; }
-  catch (error) { report.checks.push({ name, kind, passed: false, code: safeCode(error) }); console.log(`FAIL: ${name} (${safeCode(error)})`); return false; }
+  catch (error) {
+    const diagnostics = { phase, errorClass: /^[A-Za-z]+$/.test(error?.name ?? '') ? error.name : 'Error',
+      matcher: /^[A-Za-z]+$/.test(error?.matcherResult?.name ?? '') ? error.matcherResult.name : undefined,
+      path: page ? new URL(page.url()).pathname.replace(/[0-9a-f]{8}-[0-9a-f-]{27,}/gi, ':id') : undefined };
+    report.checks.push({ name, kind, passed: false, code: safeCode(error), diagnostics });
+    console.log(`FAIL: ${name} (${safeCode(error)}; ${phase})`); return false;
+  }
 }
 async function required(name, kind, action) {
   const passed = await check(name, kind, action);
@@ -99,11 +106,18 @@ function callback(tokenHash, type) {
   return target.href;
 }
 async function consumeLink(tokenHash, type) {
+  phase = `${type}-intent-navigation`;
   await page.goto(callback(tokenHash, type), { waitUntil: 'domcontentloaded' });
+  phase = `${type}-intent-presentation`;
   await expect(page.getByRole('heading', { name: 'Confirme seu acesso' })).toBeVisible();
   const intent = (await context.cookies()).find(cookie => cookie.name === '__Host-tf-auth-intent');
   ensure(intent?.secure && intent.httpOnly && intent.sameSite === 'Lax', 'HTTPS_INTENT_COOKIE_NOT_PROTECTED');
+  phase = `${type}-intent-submit`;
+  const completed = page.waitForResponse(response => new URL(response.url()).pathname === '/api/auth/callback' && response.request().method() === 'POST');
   await page.getByRole('button', { name: 'Continuar', exact: true }).click();
+  const response = await completed;
+  ensure(response.status() === 303, `AUTH_INTENT_POST_${response.status()}`);
+  phase = `${type}-callback-return`;
   await page.waitForURL(url => url.origin === site.origin && url.pathname === (type === 'recovery' ? '/pt-BR/redefinir-senha' : '/pt-BR/carrinho'));
 }
 async function login() {
@@ -146,7 +160,9 @@ try {
   });
   page = await context.newPage();
   page.on('pageerror', () => { report.browserPageErrors++; });
+  report.authCallbackResponses = [];
   page.on('response', async response => {
+    if (new URL(response.url()).pathname === '/api/auth/callback') report.authCallbackResponses.push({ method: response.request().method(), status: response.status() });
     if (response.url().startsWith(`${database.origin}/auth/v1/token`)) {
       try { const body = await response.json(); if (typeof body.access_token === 'string') observedToken = body.access_token; } catch { /* Failed authentication contains no cleanup token. */ }
     }
@@ -178,6 +194,7 @@ try {
     ensure(!result.error && fixture && result.data.properties?.hashed_token, 'SIGNUP_FIXTURE_LINK_FAILED');
     ensure(!result.data.user.email_confirmed_at, 'SIGNUP_FIXTURE_ALREADY_CONFIRMED');
     await consumeLink(result.data.properties.hashed_token, 'signup');
+    phase = 'signup-profile-verification';
     await ensureOwnProfile();
     const sessions = (await context.cookies()).filter(cookie => cookie.name.startsWith(`sb-${ref}-auth-token`));
     ensure(sessions.length > 0 && sessions.every(cookie => cookie.secure && cookie.sameSite === 'Lax'), 'HTTPS_SESSION_COOKIES_NOT_PROTECTED');

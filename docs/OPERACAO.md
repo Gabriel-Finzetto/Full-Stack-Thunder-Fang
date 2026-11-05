@@ -134,13 +134,13 @@ Após publicar, conferir o domínio real: HTTPS, idiomas, mídia, cadastro, conf
 
 ## Verificações automáticas no GitHub
 
-A rotina versionada em [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) executa em push, pull request e acionamento manual. Em uma máquina Ubuntu 24.04 com Node 24, o fluxo é `npm ci` → tipos → testes → build. O resultado aparece no commit e na aba Actions do repositório.
+A rotina versionada em [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) executa em push, pull request e acionamento manual. Em uma máquina Ubuntu 24.04 com Node 24, o primeiro job executa `npm ci` → tipos → testes → build. Após esse job passar, outro job instala o Firefox e suas dependências nativas com `npx playwright install --with-deps firefox` e executa `npm run test:browser -- --project=firefox`. O resultado de ambos aparece no commit e na aba Actions do repositório.
 
-O ambiente usa apenas a origem local de teste e o catálogo de exploração, sem chaves Supabase ou Brevo. Assim, uma proposta de alteração não recebe acesso ao banco, aos e-mails ou aos segredos de produção. Os testes de integração com escrita remota e as jornadas de navegador são executados separadamente no ambiente apropriado.
+O ambiente usa apenas a origem local de teste e o catálogo de exploração, sem credenciais reais Supabase ou Brevo. O job Firefox fornece uma URL pública no domínio reservado `.invalid` e uma chave pública sintética fixa para inicializar o cliente do navegador; os testes interceptam os provedores e bloqueiam solicitações externas. Assim, uma proposta de alteração não recebe acesso ao banco, aos e-mails ou aos segredos de produção. As nove verificações responsivas usam respostas sintéticas e bloqueiam escritas; a regressão do formulário de confirmação usa um token sintético e intercepta o envio antes da verificação de autenticação. Os testes de integração com escrita remota continuam separados e exigem o ambiente dedicado descrito acima.
 
-O token tem somente leitura do conteúdo; o checkout não persiste credenciais e as ações são fixadas por commit completo verificado na origem. A rotina tem limite de 15 minutos e cancela uma execução anterior da mesma referência quando chega uma alteração nova. Não utiliza gatilhos privilegiados para executar código de propostas externas.
+O token tem somente leitura do conteúdo; o checkout não persiste credenciais e as ações são fixadas por commit completo verificado na origem. O job de tipos, testes e build tem limite de 15 minutos; o de Firefox tem limite de 20 minutos. A rotina cancela uma execução anterior da mesma referência quando chega uma alteração nova. Não utiliza gatilhos privilegiados para executar código de propostas externas.
 
-Essa rotina detecta regressões de instalação, contratos e compilação. Ela não publica o site nem altera a autoria dos commits. A disponibilidade e os limites de execução seguem as configurações da conta GitHub. A primeira execução remota só pode ser confirmada depois que o workflow for enviado ao repositório.
+Essa rotina detecta regressões de instalação, contratos, compilação e navegação no Firefox. Ela não publica o site nem altera a autoria dos commits. A disponibilidade e os limites de execução seguem as configurações da conta GitHub. Confirme a conclusão dos dois jobs na execução correspondente ao commit enviado ao repositório.
 
 ## Revisão do primeiro commit
 
