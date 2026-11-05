@@ -19,11 +19,15 @@ Use `http://127.0.0.1:3000` durante toda a sessão. `localhost` e `127.0.0.1` s�
 | `BACKEND_REVIEW_SECRET` | Segredo estável para assinar revisões e marcadores de recuperação | Segredo de servidor |
 | `SUPABASE_SECRET_KEY` | Chave secreta do projeto, usada pelas operações transacionais | Segredo de servidor |
 | `SUPABASE_SERVICE_ROLE_KEY` | Alternativa legada à chave secreta | Segredo de servidor |
+| `SUPABASE_PRODUCTION_PROJECT_REF` | Referência do projeto Supabase de produção; obrigatória nos builds hospedados | Servidor |
+| `SUPABASE_PREVIEW_PROJECT_REF` | Referência do projeto Supabase de testes; obrigatória nos builds hospedados | Servidor |
 | `BREVO_API_KEY` | Transporte do formulário de contato | Segredo de servidor |
 | `BREVO_SENDER_EMAIL` | Remetente validado na Brevo | Servidor |
 | `BREVO_SENDER_NAME` | Nome de apresentação do remetente | Servidor |
 
 Configure apenas uma das duas chaves administrativas Supabase; `SUPABASE_SECRET_KEY` tem prioridade. Chaves administrativas e de e-mail nunca recebem prefixo `NEXT_PUBLIC_`.
+
+Na Vercel, configure as duas referências em Preview e Production, sempre com projetos diferentes. Em cada escopo, a URL e as chaves Supabase devem corresponder ao projeto daquele ambiente. O build verifica essa correspondência e recusa o modo local. Veja [ambientes e separação de dados](OPERACAO.md#ambientes-e-separação-de-dados).
 
 Gere `BACKEND_REVIEW_SECRET` com pelo menos 32 bytes aleatórios:
 
@@ -74,7 +78,7 @@ Use as migrações apenas em um ambiente dedicado. A migração de remoção leg
 Habilite acesso por e-mail e senha, com confirmação de e-mail. Em URL Configuration do Auth:
 
 - Site URL local: `http://127.0.0.1:3000`.
-- Redirect URL local: `http://127.0.0.1:3000/**`.
+- Redirect URL local: `http://127.0.0.1:3000/api/auth/callback**`.
 - O callback da aplicação é `/api/auth/callback`, com parâmetros de idioma, retorno, fluxo e identificador PKCE.
 
 A configuração local permite os parâmetros variáveis do retorno. Para ambiente público, configure a origem HTTPS real e restrinja a lista aos callbacks necessários, sem aceitar origens arbitrárias. Consulte [Redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls).

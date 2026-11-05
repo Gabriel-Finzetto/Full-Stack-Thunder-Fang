@@ -2,6 +2,8 @@
 
 E-commerce demonstrativo desenvolvido por **[Gabriel Finzetto](https://github.com/Gabriel-Finzetto)**. Reúne identidade visual própria, catálogo multilíngue, apresentação de produtos em 3D, carrinho persistente, autenticação e pedidos privados em uma aplicação full stack.
 
+**[Acessar a demonstração](https://thunder-fang.vercel.app/pt-BR)**
+
 O projeto simula uma loja de bebidas energéticas. **Não realiza cobranças nem envia produtos.** Use dados fictícios ao explorar o checkout.
 
 ## Funcionalidades

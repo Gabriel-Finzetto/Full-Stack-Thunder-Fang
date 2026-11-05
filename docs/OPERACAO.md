@@ -65,6 +65,37 @@ Os arquivos `supabase/tests/shop.sql` e `supabase/tests/security.sql` validam re
 
 Em um projeto Supabase novo, estabeleça primeiro uma conexão WebSocket que se inscreva em um canal Realtime autorizado, pela aplicação ou pelo Inspector. O próprio serviço cria as partições diárias de `realtime.messages` nessa primeira conexão. Abrir o painel ou chamar `realtime.send()` não inicializa as partições; sem elas, os testes de broadcast não têm onde inserir os eventos. Depois da inicialização, desconecte o cliente de diagnóstico e execute as suítes completas. Não crie manualmente partições internas para contornar essa preparação. Veja o [guia oficial de inicialização do broadcast](https://supabase.com/kb/troubleshooting/realtime-warn-sending-broadcast-message).
 
+### Jornada em uma prévia pública
+
+O script `scripts/verify-public-release.mjs` valida uma implantação HTTPS ligada ao projeto Supabase de testes. Ele exige o host exato da prévia e referências diferentes para os bancos de teste e produção. Antes de criar um pedido, confere se a API da implantação reconhece a conta temporária do banco de testes.
+
+Prepare `.env.release-test.local`, ignorado pelo Git e pelo envio à Vercel, com as seguintes variáveis:
+
+| Variável | Configuração |
+| --- | --- |
+| `RELEASE_TEST_SITE_URL` | Origem HTTPS exata da prévia, sem caminho, consulta ou fragmento |
+| `RELEASE_TEST_EXPECTED_HOST` | Host dessa origem, sem protocolo |
+| `RELEASE_TEST_SUPABASE_PROJECT_REF` | Referência do projeto dedicado a testes |
+| `RELEASE_PRODUCTION_SUPABASE_PROJECT_REF` | Referência distinta do projeto de produção |
+| `RELEASE_TEST_SUPABASE_URL` | URL do projeto de testes |
+| `RELEASE_TEST_SUPABASE_PUBLISHABLE_KEY` | Chave publicável do projeto de testes |
+| `RELEASE_TEST_SUPABASE_SECRET_KEY` | Chave secreta do projeto de testes, restrita ao computador de validação |
+| `RELEASE_TEST_VERCEL_BYPASS` | Opcional: credencial de automação autorizada para uma prévia protegida |
+
+Esse script não carrega `.env.local`. Para selecionar outro arquivo de teste ignorado pelo Git, defina `RELEASE_TEST_ENV_FILE`. Não reutilize as chaves administrativas de produção nesse arquivo.
+
+Com o Chromium do Playwright instalado, execute:
+
+```sh
+node scripts/verify-public-release.mjs --allow-test-users
+```
+
+A jornada cobre validação local do cadastro, confirmação por link real, login, carrinho, frete, revisão assinada, criação de pedido demonstrativo, consulta, exclusão, recuperação de senha e logout. Os links de confirmação e recuperação são gerados pela API administrativa do Auth sem envio SMTP. Sessão expirada, indisponibilidade do catálogo e rejeição do contato são exercitadas com falhas controladas e identificadas no relatório.
+
+O comando acima não habilita envio real pelo formulário de contato. O recebimento de confirmação, recuperação e contato deve ser conferido manualmente em uma caixa autorizada; esta automação não comprova entrega de e-mail.
+
+Ao encerrar, o script revoga as sessões temporárias, exclui as contas criadas e verifica a ausência dos respectivos perfis, pedidos, itens e eventos. O resultado fica em `test-results/release/public-journey-report.json`; falhas na jornada ou na limpeza produzem saída de erro. Confira o relatório e revogue uma eventual credencial temporária de acesso à prévia após a validação. A lista de opções está disponível com `node scripts/verify-public-release.mjs --help`.
+
 ### Limites de segredo
 
 Após um build com configuração de integração:
@@ -109,7 +140,7 @@ Excluir linhas não representa redução imediata de todo espaço alocado do Pos
 | Preview | Host exato de `VERCEL_URL`; o host de `VERCEL_BRANCH_URL` também é aceito quando fornecido pela Vercel | `thunder-fang-preview` — `thubcbrhassfthtvcgwe` |
 | Production | `https://thunder-fang.vercel.app` | `zgfjprmwrwzgmvbbmbjt` |
 
-O domínio de Production acima é o destino canônico definido para a publicação. A conclusão do deploy e o aceite da jornada precisam ser registrados após a execução; a existência deste mapa não comprova que o ambiente público já foi validado.
+A demonstração está publicada no ambiente Production da Vercel em [thunder-fang.vercel.app](https://thunder-fang.vercel.app/pt-BR), com acesso HTTPS verificado. A prévia utiliza um projeto Supabase separado. As 11 verificações da jornada pública passaram nesse ambiente isolado, usando a mesma versão da aplicação promovida para produção. Os envios por SMTP e o recebimento de confirmação, recuperação e contato permanecem sujeitos à validação manual em uma caixa autorizada.
 
 Cadastre variáveis separadas nos escopos Preview e Production da Vercel. URL, chave publicável e chave secreta Supabase devem pertencer ao projeto indicado para aquele ambiente. Use um segredo de revisão próprio por ambiente e `BACKEND_LOCAL_MODE=false` nos builds hospedados. As variáveis `SUPABASE_PRODUCTION_PROJECT_REF` e `SUPABASE_PREVIEW_PROJECT_REF` precisam identificar projetos diferentes em ambos os escopos.
 
@@ -136,7 +167,7 @@ Após publicar, conferir o domínio real: HTTPS, idiomas, mídia, cadastro, conf
 
 A rotina versionada em [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) executa em push, pull request e acionamento manual. Em uma máquina Ubuntu 24.04 com Node 24, o primeiro job executa `npm ci` → tipos → testes → build. Após esse job passar, outro job instala o Firefox e suas dependências nativas com `npx playwright install --with-deps firefox` e executa `npm run test:browser -- --project=firefox`. O resultado de ambos aparece no commit e na aba Actions do repositório.
 
-O ambiente usa apenas a origem local de teste e o catálogo de exploração, sem credenciais reais Supabase ou Brevo. O job Firefox fornece uma URL pública no domínio reservado `.invalid` e uma chave pública sintética fixa para inicializar o cliente do navegador; os testes interceptam os provedores e bloqueiam solicitações externas. Assim, uma proposta de alteração não recebe acesso ao banco, aos e-mails ou aos segredos de produção. As nove verificações responsivas usam respostas sintéticas e bloqueiam escritas; a regressão do formulário de confirmação usa um token sintético e intercepta o envio antes da verificação de autenticação. Os testes de integração com escrita remota continuam separados e exigem o ambiente dedicado descrito acima.
+O ambiente usa apenas a origem local de teste e o catálogo de exploração, sem credenciais reais Supabase ou Brevo. O job Firefox fornece uma URL pública no domínio reservado `.invalid` e uma chave pública sintética fixa para inicializar o cliente do navegador; os testes interceptam os provedores e bloqueiam solicitações externas. Assim, uma proposta de alteração não recebe acesso ao banco, aos e-mails ou aos segredos de produção. As nove verificações responsivas usam respostas sintéticas e bloqueiam escritas; a regressão do formulário de confirmação envia um formulário nativo com token sintético e verifica a recusa de um nonce inválido antes da chamada ao Auth. Os testes de integração com escrita remota continuam separados e exigem o ambiente dedicado descrito acima.
 
 O token tem somente leitura do conteúdo; o checkout não persiste credenciais e as ações são fixadas por commit completo verificado na origem. O job de tipos, testes e build tem limite de 15 minutos; o de Firefox tem limite de 20 minutos. A rotina cancela uma execução anterior da mesma referência quando chega uma alteração nova. Não utiliza gatilhos privilegiados para executar código de propostas externas.
 

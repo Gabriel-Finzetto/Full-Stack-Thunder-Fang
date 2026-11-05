@@ -161,10 +161,16 @@ try {
   page = await context.newPage();
   page.on('pageerror', () => { report.browserPageErrors++; });
   report.authCallbackResponses = [];
+  report.recoveryCheckResponses = [];
   page.on('response', async response => {
     if (new URL(response.url()).pathname === '/api/auth/callback') report.authCallbackResponses.push({ method: response.request().method(), status: response.status() });
     if (response.url().startsWith(`${database.origin}/auth/v1/token`)) {
       try { const body = await response.json(); if (typeof body.access_token === 'string') observedToken = body.access_token; } catch { /* Failed authentication contains no cleanup token. */ }
+    }
+    if (new URL(response.url()).pathname === '/api/auth/recovery') {
+      let allowed = null;
+      try { allowed = (await response.json()).allowed === true; } catch { /* Record status without retaining an error body. */ }
+      report.recoveryCheckResponses.push({ status: response.status(), allowed, responseMs: Math.round(response.request().timing().responseStart) });
     }
   });
 
@@ -243,9 +249,17 @@ try {
     await logout();
     const recovery = await admin.auth.admin.generateLink({ type: 'recovery', email: fixture.email, options: { redirectTo: site.origin + '/api/auth/callback' } });
     ensure(!recovery.error && recovery.data.properties?.hashed_token, 'RECOVERY_LINK_FAILED');
+    const recoveryChecked = page.waitForResponse(response => new URL(response.url()).origin === site.origin
+      && new URL(response.url()).pathname === '/api/auth/recovery' && response.request().method() === 'GET', { timeout: 30_000 });
     await consumeLink(recovery.data.properties.hashed_token, 'recovery');
     const marker = (await context.cookies()).find(cookie => cookie.name === 'tf-recovery');
     ensure(marker?.secure && marker.httpOnly, 'RECOVERY_COOKIE_NOT_PROTECTED');
+    phase = 'recovery-authorization-response';
+    // The UI depends on real Auth verification before enabling this form. Wait
+    // for its own response rather than Playwright expect's standalone 5s default.
+    const recoveryResponse = await recoveryChecked;
+    ensure(recoveryResponse.status() === 200 && (await recoveryResponse.json()).allowed === true, 'RECOVERY_CHECK_FAILED');
+    phase = 'recovery-password-form';
     const nextPassword = 'Tf!' + randomBytes(25).toString('base64url') + 'B8';
     await expect(page.locator('input[name="password"]')).toBeEnabled();
     await page.locator('input[name="password"]').fill(nextPassword);
