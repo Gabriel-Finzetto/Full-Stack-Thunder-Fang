@@ -3,9 +3,8 @@
 import Image from 'next/image';
 import { canArtwork } from '@/domain/product-artwork';
 import { useEffect, useRef, useState } from 'react';
-import { useInView, useMotionValue, useMotionValueEvent, useReducedMotion } from 'motion/react';
+import { useInView, useMotionValue, useMotionValueEvent } from 'motion/react';
 import { products, type Product } from '@/domain/catalog';
-import { CAN_MOTION_PREFERENCE_KEY, canMotionChoice, orbitMotionEnabled, type OrbitMotionChoice } from '@/domain/orbit';
 import { useLocale } from '@/i18n/locale-context';
 import type { CanStageController } from './can-webgl';
 import { useCanMotion } from './use-can-motion';
@@ -31,11 +30,7 @@ export function OrbitScene() {
   const [requested, setRequested] = useState(false);
   const [graphics, setGraphics] = useState<'idle' | 'loading' | 'ready' | 'fallback'>('idle');
   const progress = useMotionValue(0);
-  const [ready, setReady] = useState(false); const reducedMotion = useReducedMotion();
-  const [shortViewport, setShortViewport] = useState(false);
-  const [motionChoice, setMotionChoice] = useState<OrbitMotionChoice>('auto');
-  const graphicsAllowed = ready && orbitMotionEnabled(Boolean(reducedMotion), shortViewport, motionChoice);
-  const motionDisabled = graphics !== 'ready' || !graphicsAllowed;
+  const motionDisabled = graphics !== 'ready';
   const inView = useInView(track, { margin: '80px 0px 80px 0px' });
   const nearView = useInView(track, { margin: '600px 0px 600px 0px', once: true });
   useCanMotion({ track, progress, disabled: motionDisabled });
@@ -44,9 +39,9 @@ export function OrbitScene() {
     visible.current = inView;
     controller.current?.setVisible(inView);
   }, [inView]);
-  useEffect(() => { if (nearView && graphicsAllowed) setRequested(true); }, [nearView, graphicsAllowed]);
+  useEffect(() => { if (nearView) setRequested(true); }, [nearView]);
   useEffect(() => {
-    if (!requested || !graphicsAllowed) { setGraphics('idle'); return; }
+    if (!requested) return;
     let cancelled = false;
     setGraphics('loading');
     void import('./can-webgl').then(({ createCanStage }) => {
@@ -62,46 +57,13 @@ export function OrbitScene() {
       controller.current.setVisible(visible.current);
     }).catch(() => { if (!cancelled) setGraphics('fallback'); });
     return () => { cancelled = true; controller.current?.dispose(); controller.current = null; };
-  }, [requested, graphicsAllowed, progress]);
-  useEffect(() => { const media = window.matchMedia('(max-height: 520px)'); const update = () => setShortViewport(media.matches); update(); media.addEventListener('change', update); return () => media.removeEventListener('change', update); }, []);
-  useEffect(() => {
-    let saved: string | null = null;
-    try { saved = localStorage.getItem(CAN_MOTION_PREFERENCE_KEY); } catch { /* Storage can be unavailable in an embedded preview. */ }
-    const choice = canMotionChoice(window.location.search, saved);
-    setMotionChoice(choice);
-    try {
-      if (choice === 'animate') localStorage.setItem(CAN_MOTION_PREFERENCE_KEY, choice);
-      else localStorage.removeItem(CAN_MOTION_PREFERENCE_KEY);
-    } catch { /* The explicit URL still works without persistent storage. */ }
-    setReady(true);
-  }, []);
-  const toggleMotion = () => {
-    const choice = motionChoice === 'animate' ? 'auto' : 'animate';
-    setMotionChoice(choice);
-    try {
-      if (choice === 'animate') localStorage.setItem(CAN_MOTION_PREFERENCE_KEY, choice);
-      else localStorage.removeItem(CAN_MOTION_PREFERENCE_KEY);
-    } catch { /* The control still works for this visit when storage is unavailable. */ }
-    // Keep an explicit link from overriding a later choice after a reload.
-    const url = new URL(window.location.href);
-    if (url.searchParams.has('movimento')) {
-      url.searchParams.set('movimento', choice === 'animate' ? 'latas' : 'sistema');
-      window.history.replaceState(null, '', url);
-    }
-  };
-  return <>
-    {ready && reducedMotion && !shortViewport && graphics !== 'fallback' && <div className={styles.motionPreferences}>
-      <p>{t('Seu dispositivo está configurado para reduzir movimento.')}</p>
-      <button type="button" className="btn btn-secondary" aria-pressed={motionChoice === 'animate'} onClick={toggleMotion}>{t('Animar latas')}</button>
-    </div>}
-    <div ref={track} className={styles.journey} data-orbit-journey data-three-status={graphics} data-can-motion-choice={motionChoice} data-animated={ready && !motionDisabled ? 'true' : 'false'}>
-      <div className={styles.sticky}>
-        <div ref={stage} className={styles.stage} role="img" aria-label={`Thunder Fang Energy — ${products.map(product => t(product.name)).join(', ')}`}>
-          <div className={styles.canGrid}>{products.map(product => <CanSlot key={product.slug} product={product} />)}</div>
-          {/* A disposed stage loses its WebGL context, so each session needs a fresh canvas. */}
-          <canvas key={graphicsAllowed ? 'animated' : 'static'} ref={canvas} className={styles.canvas} data-can-renderer="3d" aria-hidden="true" />
-        </div>
+  }, [requested, progress]);
+  return <div ref={track} className={styles.journey} data-orbit-journey data-three-status={graphics} data-animated={!motionDisabled ? 'true' : 'false'}>
+    <div className={styles.sticky}>
+      <div ref={stage} className={styles.stage} role="img" aria-label={`Thunder Fang Energy — ${products.map(product => t(product.name)).join(', ')}`}>
+        <div className={styles.canGrid}>{products.map(product => <CanSlot key={product.slug} product={product} />)}</div>
+        <canvas ref={canvas} className={styles.canvas} data-can-renderer="3d" aria-hidden="true" />
       </div>
     </div>
-  </>;
+  </div>;
 }

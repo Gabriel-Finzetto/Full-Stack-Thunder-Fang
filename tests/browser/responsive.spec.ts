@@ -126,7 +126,7 @@ for (const screen of screens) {
     await expect(page.locator(`header summary[title="${profile.name}"]`)).toBeVisible();
     await expect(page.locator('main h1')).toBeVisible();
     await expectNoHorizontalOverflow(page);
-    await expect(page.locator('[data-orbit-journey]')).toHaveAttribute('data-animated', 'false');
+    await expect(page.getByRole('button', { name: /^(Animar latas|Animate cans)$/ })).toHaveCount(0);
     if (screen.width === 1440) await reviewScreenshot(page, `${testInfo.project.name}-home-1440`);
 
     await page.locator('summary[aria-controls="navbar-produtos"]').click();

@@ -1,16 +1,6 @@
 // All four fixed cans follow one shared, three-step elliptical turn.
 export const CAN_WOBBLE_PHASES = [0, 0, 0, 0] as const;
 export const CAN_SCROLL_STEPS = 3;
-export type OrbitMotionChoice = 'auto' | 'animate' | 'static';
-export const CAN_MOTION_PREFERENCE_KEY = 'tf-can-scroll-motion-v1';
-/** An explicit, can-only choice never changes the visitor's system setting. */
-export function canMotionChoice(search: string, saved: string | null): OrbitMotionChoice {
-  const requested = new URLSearchParams(search).get('movimento');
-  if (requested === 'latas') return 'animate';
-  if (requested === 'sistema') return 'auto';
-  return saved === 'animate' ? 'animate' : 'auto';
-}
-export function orbitMotionEnabled(reducedMotion: boolean, shortViewport: boolean, choice: OrbitMotionChoice) { return !shortViewport && choice !== 'static' && (!reducedMotion || choice === 'animate'); }
 export function orbitProgressFromBounds(top: number, height: number, viewportHeight: number) {
   if (!Number.isFinite(top) || !Number.isFinite(height) || !Number.isFinite(viewportHeight)) return 0;
   const distance = height - viewportHeight;

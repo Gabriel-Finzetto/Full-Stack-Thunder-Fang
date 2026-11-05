@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CAN_SCROLL_STEPS, CAN_WOBBLE_PHASES, canMotionChoice, canTiltX, canTiltY, canTiltZ, orbitMotionEnabled, orbitProgressFromBounds } from '../src/domain/orbit';
+import { CAN_SCROLL_STEPS, CAN_WOBBLE_PHASES, canTiltX, canTiltY, canTiltZ, orbitProgressFromBounds } from '../src/domain/orbit';
 
 describe('elipse sincronizada das quatro latas em três acionamentos', () => {
   it('reconcilia a posição após expandir a prévia, sem depender de um novo scroll', () => {
@@ -9,23 +9,6 @@ describe('elipse sincronizada das quatro latas em três acionamentos', () => {
     expect(orbitProgressFromBounds(-900, 1700, 1000)).toBe(1);
     expect(orbitProgressFromBounds(0, 400, 800)).toBe(0);
     expect(orbitProgressFromBounds(Number.NaN, 1700, 1000)).toBe(0);
-  });
-  it('respeita movimento reduzido e permite prévia apenas por escolha explícita', () => {
-    expect(orbitMotionEnabled(true, false, 'auto')).toBe(false);
-    expect(orbitMotionEnabled(true, false, 'animate')).toBe(true);
-    expect(orbitMotionEnabled(false, false, 'auto')).toBe(true);
-    expect(orbitMotionEnabled(false, false, 'static')).toBe(false);
-    expect(orbitMotionEnabled(false, true, 'animate')).toBe(false);
-  });
-  it('ativa somente as latas por escolha explícita e permite restaurar a preferência do sistema', () => {
-    expect(canMotionChoice('', null)).toBe('auto');
-    expect(canMotionChoice('?movimento=latas', null)).toBe('animate');
-    expect(canMotionChoice('', 'animate')).toBe('animate');
-    expect(canMotionChoice('?movimento=sistema', 'animate')).toBe('auto');
-    expect(canMotionChoice('?movimento=invalid', 'unexpected')).toBe('auto');
-    expect(canMotionChoice('?other=latas', null)).toBe('auto');
-    expect(orbitMotionEnabled(true, false, canMotionChoice('?movimento=latas', null))).toBe(true);
-    expect(orbitMotionEnabled(true, false, canMotionChoice('?movimento=sistema', 'animate'))).toBe(false);
   });
   it('começa e termina neutro e limita progresso inválido sem giros completos', () => {
     for (const phase of CAN_WOBBLE_PHASES) for (const tilt of [canTiltX, canTiltY, canTiltZ]) {

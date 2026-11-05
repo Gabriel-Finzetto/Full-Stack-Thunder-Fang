@@ -34,7 +34,7 @@ export function createCanStage(options: CanStageOptions): CanStageController {
     throw error;
   }
   renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.autoClear = false;
@@ -67,6 +67,8 @@ export function createCanStage(options: CanStageOptions): CanStageController {
   let slots: { left: number; bottom: number; width: number; height: number }[] = [];
 
   function measure() {
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    if (renderer.getPixelRatio() !== pixelRatio) renderer.setPixelRatio(pixelRatio);
     const bounds = canvas.getBoundingClientRect();
     width = bounds.width; height = bounds.height;
     slots = frames.map(frame => {

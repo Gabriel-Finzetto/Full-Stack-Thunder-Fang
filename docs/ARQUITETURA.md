@@ -64,6 +64,6 @@ Leituras e mutações pendentes são vinculadas à identidade e a uma versão de
 
 ## Interface e recursos gráficos
 
-CSS Modules preserva estilos por componente. As quatro apresentações 3D compartilham um contexto WebGL e renderizam sob demanda. Falha de WebGL, preferência de movimento reduzido e telas muito baixas usam apresentação estática. O preparo das texturas é parte do build e usa recursos presentes no repositório.
+CSS Modules preserva estilos por componente. As quatro apresentações 3D compartilham um contexto WebGL e renderizam sob demanda. As latas carregam e acompanham a rolagem automaticamente, inclusive com movimento reduzido e em telas baixas, sem controles de ativação. A apresentação estática permanece como alternativa quando WebGL está indisponível ou falha. Os demais efeitos da interface respeitam a preferência de movimento reduzido. O preparo das texturas é parte do build e usa recursos presentes no repositório.
 
 Os idiomas disponíveis são `pt-BR`, `en`, `es` e `zh-Hans`. Idioma, país de entrega e moeda são conceitos separados; a moeda da demonstração permanece BRL.

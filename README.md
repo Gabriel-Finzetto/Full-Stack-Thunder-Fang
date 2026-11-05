@@ -16,7 +16,7 @@ O projeto simula uma loja de bebidas energéticas. **Não realiza cobranças nem
 - Área da conta com perfil, entrega padrão, compra rápida e pedidos atualizados por canal privado.
 - Até cinco pedidos ativos por conta, com expiração de 24 horas e exclusão permanente.
 - Central de ajuda e contato por e-mail.
-- Layout adaptável, navegação por teclado e respeito à preferência de movimento reduzido.
+- Layout adaptável e navegação por teclado. As latas animam automaticamente com a rolagem, inclusive com movimento reduzido; os demais efeitos da interface respeitam essa preferência.
 
 ## Tecnologias
 
